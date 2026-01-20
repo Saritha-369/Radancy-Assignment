@@ -193,7 +193,7 @@ img {
   padding: map-get($spaces, xl) 0;
   
   @media (max-width: map-get($breakpoints, mobile)) {
-    padding: map-get($spaces, md) 0;  
+    padding: map-get($spaces, lg) 0;  
   }
   background: white;
 
@@ -220,7 +220,7 @@ img {
 
 
    @media (max-width: 640px) {
-    padding: map-get($spaces, sm) 0;  
+    padding: map-get($spaces, md) 0;  
   }
 
   h2 {
@@ -228,11 +228,7 @@ img {
     text-align: center;
     margin-bottom: map-get($spaces, xl);
 
-     @media (max-width: 480px) {
-    max-width: 282px;  
-    margin-left: auto;
-    margin-right: auto;
-  }
+   
   }
 
   &__grid {
