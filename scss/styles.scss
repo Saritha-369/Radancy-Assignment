@@ -1,0 +1,521 @@
+// VARIABLES & MIXINS
+$primary-green: #005944;
+$secondary-green: #00945f;
+$light-green: #e6f2ee;
+$orange: #e97300;
+$text-dark: #222;
+$text-muted: #888888;
+$learn-more: #759b24;
+$advisor-name: #009e77;
+$text-black: #000000;
+
+$facebook-bg: #1877f2;
+$twitter-bg: #1da1f2;
+$youtube-bg: #ff0000;
+$linkedin-bg: #0077b5;
+
+$spaces: (
+  xs: 0.5rem,
+  sm: 1rem,
+  md: 1.5rem,
+  lg: 2.5rem,
+  xl: 4rem,
+  xxl: 6rem
+);
+
+$breakpoints: (
+  mobile: 480px,
+  tablet: 640px,
+  laptop: 1024px,
+  desktop: 1440px
+);
+
+$font-sizes: (
+  h1: 3rem,
+  h2: 2.25rem,
+  h3: 1.5rem,
+  base: 1rem,
+  small: 0.875rem
+);
+
+@mixin container {
+  max-width: clamp(320px, 95vw, 1440px);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 2rem);
+}
+
+@mixin heading($size: h2, $color: $secondary-green) {
+  font-size: clamp(map-get($font-sizes, $size) * 0.8, 5vw, map-get($font-sizes, $size));
+  color: $color;
+  line-height: 1.2;
+  margin-bottom: map-get($spaces, md);
+}
+
+@mixin btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 165px;
+  height: 40px;
+  padding: 0;
+  background: $orange;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($orange, 0.4);
+    opacity: 0.95;
+  }
+
+  &:focus {
+    outline: 2px solid rgba($orange, 0.5);
+    outline-offset: 2px;
+  }
+}
+
+@mixin responsive-grid($min-width: 280px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp($min-width, 45vw, 500px), 1fr));
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+// BASE STYLES
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: $text-dark;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  @include container;
+}
+
+.logo {
+  width: clamp(180px, 25vw, 250px);
+  height: auto;
+}
+
+.underline {
+  display: block;
+  width: clamp(60px, 10vw, 80px);
+  height: 3px;
+  background: $secondary-green;
+  margin: clamp(0.5rem, 2vw, 1rem) auto 0;
+}
+
+// HEADER
+.header {
+  padding: map-get($spaces, lg), 0;
+  background: white;
+
+
+   @media (max-width: 768px) {
+    padding: map-get($spaces, md) 0; 
+  }
+   @media (min-width: 769px) {
+    padding: map-get($spaces, lg) 0; 
+  }
+  
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    @media (min-width: 768px) {
+      justify-content: flex-start;
+      padding-left: map-get($spaces, sm);
+    }
+  }
+}
+
+// HERO SECTION
+.hero {
+  position: relative;
+  overflow: hidden;
+  
+  picture {
+    display: block;
+    width: 100%;
+    aspect-ratio: 29/9;
+    min-height: 50vh;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+
+  .slanted-edge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: clamp(200px, 40vw, 600px);
+    height: 100%;
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+    background: $primary-green;
+    opacity: 0.800;
+    z-index: 1;
+    width: 55%;
+
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
+}
+
+
+
+
+// HERO TEXT 
+.hero-text {
+  text-align: center;
+  padding: map-get($spaces, xl) 0;
+  
+  @media (max-width: map-get($breakpoints, mobile)) {
+    padding: map-get($spaces, md) 0;  
+  }
+  background: white;
+
+  h2 {
+    @include heading(h2);
+  }
+
+  p {
+    color: $text-muted;
+    font-size: clamp(1rem, 3vw, 1.125rem);
+    margin: 0 auto map-get($spaces, lg);
+    text-align: left;
+  }
+}
+
+// BUTTON
+.btn {
+  @include btn;
+}
+
+// ADVANTAGES
+.advantages {
+  padding: map-get($spaces, md) 0;
+
+
+   @media (max-width: 640px) {
+    padding: map-get($spaces, sm) 0;  
+  }
+
+  h2 {
+    @include heading(h2);
+    text-align: center;
+    margin-bottom: map-get($spaces, xl);
+
+     @media (max-width: 480px) {
+    max-width: 282px;  
+    margin-left: auto;
+    margin-right: auto;
+  }
+  }
+
+  &__grid {
+    @include responsive-grid(300px);
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr); 
+      gap: clamp(2rem, 4vw, 3rem);
+    }
+  }
+
+  h3 {
+    @include heading(h3);
+  }
+
+  p {
+    color: $text-muted;
+    line-height: 1.7;
+  }
+
+  .learn-more {
+    color: $learn-more;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #5f7b1c;
+    }
+    
+    svg {
+      vertical-align: middle;
+      margin-left: 0.1rem;
+    }
+  }
+}
+
+// BANNER
+.banner {
+  padding: map-get($spaces, xl) 0;
+  text-align: center;
+
+  .container > p {
+    height: 69px;
+    background: $secondary-green;
+    color: white;
+    font-size: clamp(1.125rem, 3.5vw, 1.5rem);
+    padding: 0 clamp(1.5rem, 4vw, 2rem);
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .container .banner__inner-para {
+    background: #ebf7f5;
+    color: $text-muted;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem) map-get($spaces, lg);
+    line-height: 1.7;
+    text-align: left;
+    width: 100%;
+    font-weight: 400;
+  }
+}
+
+// ADVISORS 
+.advisors {
+  padding: map-get($spaces, sm) 0;
+
+  &__grid {
+    @include responsive-grid(280px);
+    align-items: start;
+
+    // TABLET
+    @media (min-width: map-get($breakpoints, tablet)) and (max-width: map-get($breakpoints, laptop) - 1px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    // DESKTOP
+    @media (min-width: map-get($breakpoints, laptop)) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(2rem, 4vw, 3rem);
+    }
+  }
+
+  .advisor {
+    text-align: center;
+    padding: map-get($spaces, sm) 0;
+
+    img {
+      width: clamp(80px, 15vw, 120px);
+      height: clamp(80px, 15vw, 120px);
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: map-get($spaces, md);
+    }
+
+    .quote-mark {
+      position: absolute;
+      left: 3rem;
+      top: 1.7rem;
+      width: clamp(1.5rem, 4vw, 6rem);
+      height: clamp(1.5rem, 4vw, 8rem);
+      opacity: 0.1;
+      fill: #666;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .quote-text {
+      position: relative;
+      padding: map-get($spaces, md) map-get($spaces, sm) map-get($spaces, md) clamp(2rem, 6vw, 3rem);
+      font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+      line-height: 1.6;
+      color: #666666;
+      font-style: italic;
+      font-weight: 400;
+      margin-bottom: map-get($spaces, sm);
+    }
+
+    .advisor-name {
+      color: $advisor-name;
+      font-size: clamp(0.875rem, 2.5vw, 1rem);
+      font-weight: 500;
+      opacity: 0.839;
+      width: 194px;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+}
+
+// FOOTER
+.footer {
+  border-top: 1px solid $secondary-green;
+  padding: map-get($spaces, md) 0;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: $text-black;
+  line-height: 1.6;
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: map-get($spaces, xs);
+    margin-bottom: map-get($spaces, sm);
+    
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(42px, 12vw, 40px);
+      height: clamp(42px, 12vw, 40px);
+      
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+
+      &.facebook { background: $facebook-bg; }
+      &.twitter { background: $twitter-bg; }
+      &.youtube { background: $youtube-bg; }
+      &.linkedin { background: $linkedin-bg; }
+
+      &:hover {
+        transform: translateY(-4px) scale(1.1);
+      }
+
+      .social-icon {
+        display: block;
+        width: 1.25rem;
+        height: 1.25rem;
+        fill: white;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  p a {
+    color: $text-black;
+    text-decoration: underline;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $secondary-green !important;
+      text-decoration: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    &:focus {
+      outline: 2px solid $secondary-green;
+      outline-offset: 2px;
+    }
+  }
+
+  h6 {
+    font-size: 0.75em;
+    font-weight: 500;
+    color: $text-black;
+    margin: 0 0 map-get($spaces, md) 0;
+   
+
+    a {
+      display: inline-block;
+      padding: 0.5rem 0.25rem 0.25rem;
+      color: $text-black;
+      text-decoration: underline;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: $secondary-green;
+        text-decoration: none;
+        padding-top: 0.6rem;
+      }
+    }
+  }
+}
+
+// RESPONSIVE BREAKPOINTS
+@media (max-width: map-get($breakpoints, tablet)) {
+  .container {
+    padding: 0 clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .hero__image {
+    aspect-ratio: 8/3;
+    min-height: 45vh;
+  }
+
+  .advantages__grid {
+    grid-template-columns: 1fr;
+    gap: map-get($spaces, lg);
+  }
+
+  .banner {
+    padding: map-get($spaces, lg), 0;
+  }
+}
+
+@media (max-width: map-get($breakpoints, mobile)) {
+  .hero__image {
+    min-height: 40vh;
+  }
+
+  .quote-text {
+    padding-left: 2rem !important;
+  }
+}
+
+// SLIDE-IN ANIMATIONS
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in {
+  opacity: 0;
+  animation: slideLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+// ANIMATION 
+.hero-text { animation-delay: 0.2s; }
+.advantages { animation-delay: 0.4s; }
+.banner { animation-delay: 0.6s; }
+.advisors { animation-delay: 0.8s; }
+.footer { animation-delay: 1s; }
+
+
+// ACCESSIBILITY
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
